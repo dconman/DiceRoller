@@ -1,0 +1,92 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Dice Roller</title>
+  <meta name="description" content="The Dice Roller">
+  <meta name="author" content="Dawson Conway">
+
+  <style>
+:root {
+  font-size: 16px;
+  --border: 2;
+  border: var(--border);
+
+}
+.container {
+  display: flex;
+}
+input {
+  text-align: right;
+}
+.hist {
+  flex-grow: 1;
+  text-align: left;
+}
+.running, .count {
+  width: 2rem;
+}
+button {
+  width: 3rem;
+}
+#reset {
+  width: calc(5rem + (2 * var(--border) * 1px));
+}
+#total {
+  width: 2rem;
+}
+</style>
+
+</head>
+
+<body>
+  <script>
+function roll(input)
+{
+var val;
+  var hist = document.getElementById("text_" + input);
+  var run = document.getElementById("running_" + input);
+  var tot = document.getElementById("total");
+  document.getElementById("count_" + input).value++;
+  if(input == "A")
+  {
+    val = Math.max(Math.floor(Math.random() * 20) + 1, Math.floor(Math.random() * 20) + 1);
+  }
+  else if(input == "D")
+  {
+    val = Math.min(Math.floor(Math.random() * 20) + 1, Math.floor(Math.random() * 20) + 1);
+  }
+  else
+  {
+    val = Math.floor(Math.random() * input) + 1;
+  }
+  hist.value = val + "  " + hist.value;
+  run.value = val + parseInt(run.value);
+  tot.value = val + parseInt(tot.value);
+}
+
+function reset()
+{
+  var inputs = document.getElementsByTagName("input");
+  for(var i = 0; i < inputs.length; ++i)
+  {
+    inputs[i].value = (inputs[i].className == "hist" ? "" : "0");
+  }
+}
+  </script>
+  
+  <div class="container"><input class="count" id="count_4" value="0" readonly /><button id="4" onclick="roll(4)">d4</button><input class="running" id="running_4" value="0" readonly /><input class="hist" id="text_4" type="text" readonly /></div>
+  <div class="container"><input class="count" id="count_6" value="0" readonly /><button id="6" onclick="roll(6)">d6</button><input class="running" id="running_6" value="0" readonly /><input class="hist" id="text_6" type="text" readonly /></div>
+  <div class="container"><input class="count" id="count_8" value="0" readonly /><button id="8" onclick="roll(8)">d8</button><input class="running" id="running_8" value="0" readonly /><input class="hist" id="text_8" type="text" readonly /></div>
+  <div class="container"><input class="count" id="count_10" value="0" readonly /><button id="10" onclick="roll(10)">d10</button><input class="running" id="running_10" value="0" readonly /><input class="hist" id="text_10" type="text" readonly /></div>
+  <div class="container"><input class="count" id="count_12" value="0" readonly /><button id="12" onclick="roll(12)">d12</button><input class="running" id="running_12" value="0" readonly /><input class="hist" id="text_12" type="text" readonly /></div>
+  <div class="container"><input class="count" id="count_20" value="0" readonly /><button id="20" onclick="roll(20)">d20</button><input class="running" id="running_20" value="0" readonly /><input class="hist" id="text_20" type="text" readonly /></div>
+  <div class="container"><input class="count" id="count_100" value="0" readonly /><button id="100" onclick="roll(100)">d%</button><input class="running" id="running_100" value="0" readonly /><input class="hist" id="text_100" type="text" readonly /></div>
+  <div class="container"><input class="count" id="count_A" value="0" readonly /><button id="A" onclick="roll('A')">Adv</button><input class="running" id="running_A" value="0" readonly /><input class="hist" id="text_A" type="text" readonly /></div>
+  <div class="container"><input class="count" id="count_D" value="0" readonly /><button id="D" onclick="roll('D')">Dis</button><input class="running" id="running_D" value="0" readonly /><input class="hist" id="text_D" type="text" readonly /></div>
+  <div class="container"><button id="reset" onclick="reset()">Reset</button><input id="total" value=0 readonly /></div>
+
+</body>
+</html>
